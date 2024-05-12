@@ -18,8 +18,8 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 public class ProbeTestController {
 
-    String hostName;
-    HttpStatus livenessHttpStatus = OK;
+    private String hostName;
+    private HttpStatus livenessHttpStatus = OK;
 
     @PostConstruct
     public void init() throws UnknownHostException {
@@ -28,7 +28,7 @@ public class ProbeTestController {
 
     @GetMapping()
     public String hello() {
-        return "Hello, I'm " + hostName;
+        return "Hello, I'm " + hostName + "\n";
     }
 
     @GetMapping("/probe/liveness")
@@ -39,7 +39,7 @@ public class ProbeTestController {
     @GetMapping("/probe/liveness/{status}")
     public ResponseEntity<String> setLivenessHttpStatus(@PathVariable Integer status) {
         livenessHttpStatus = HttpStatus.valueOf(status);
-        return ResponseEntity.ok(hostName + "'s liveness status set to " + livenessHttpStatus);
+        return ResponseEntity.ok(hostName + "'s liveness http status set to " + livenessHttpStatus + "\n");
     }
 
     @GetMapping("/probe/readiness")
@@ -60,5 +60,13 @@ public class ProbeTestController {
             startupHttpStatus = OK;
         }
         return new ResponseEntity<>(startupHttpStatus);
+    }
+
+    @GetMapping("/cpu-load")
+    public ResponseEntity<String> generateCpuLoad() {
+        for (int i = 0; i < 1000000; i++) {
+            Math.tan(Math.random());
+        }
+        return ResponseEntity.ok(hostName + ": CPU load generated");
     }
 }
