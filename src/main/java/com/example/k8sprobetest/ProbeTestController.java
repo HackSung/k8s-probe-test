@@ -64,8 +64,11 @@ public class ProbeTestController {
 
     @GetMapping("/cpu-load")
     public ResponseEntity<String> generateCpuLoad() {
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100000000; i++) {
             Math.tan(Math.random());
+            Math.cos(Math.random());
+            Math.sin(Math.random());
+            Math.sqrt(Math.random());
         }
         return ResponseEntity.ok(hostName + ": CPU load generated");
     }
