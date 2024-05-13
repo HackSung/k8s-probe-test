@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hpa-test-replicaset
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hpa-test
+
+  template:
+    metadata:
+      labels:
+        app: hpa-test
+    spec:
+      containers:
+        - image: dev.pcr.kr/1004359/k8s-probe-test:1.0
+          name: hpa-container
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
+  

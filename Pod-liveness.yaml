@@ -7,12 +7,6 @@ metadata:
 spec:
   containers:
     - name: k8s-probe-test
-      image: dev.pcr.kr/1004359/k8s-probe-test:1.1
+      image: dev.pcr.kr/1004359/k8s-probe-test:1.0
       ports:
       - containerPort: 2255
-      livenessProbe:
-        httpGet:
-          path: /probe/liveness
-          port: 8080
-        initialDelaySeconds: 10
-        periodSeconds: 5

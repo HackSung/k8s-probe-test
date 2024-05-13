@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: scale-test-replicaset
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scale-test
+
+  template:
+    metadata:
+      labels:
+        app: scale-test
+
+    spec:
+      containers:
+        - image: dev.pcr.kr/1004359/k8s-probe-test:1.0
+          name: scale-test-container
+          ports:
+            - containerPort: 2255

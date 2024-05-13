@@ -1,0 +1,23 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: test-hpa
+
+spec:
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+#  metrics:
+#  - resource:
+#      name: cpu
+#      target:
+#        averageUtilization: 50
+#        type: Utilization
+#    type: Resource
+
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: hpa-test-replicaset
+  
